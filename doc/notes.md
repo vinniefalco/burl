@@ -68,40 +68,40 @@ The library is inspired by the Python Requests API but adapted for C++ idioms an
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     User Coroutine                          │
+│                     User Coroutine                                │
 └─────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                   burl::session (public)                    │
-│  - get(), post(), put(), patch(), delete_()                │
-│  - headers(), cookies(), set_auth()                         │
-│  - tls_context()                                            │
+│                   burl::session (public)                          │
+│  - get(), post(), put(), patch(), delete_()                       │
+│  - headers(), cookies(), set_auth()                               │
+│  - tls_context()                                                  │
 └─────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                  session::impl (private)                    │
-│  - owned_ioc_ / ioc_                                        │
-│  - executor_ (strand or plain)                              │
-│  - ssl_ctx_                                                 │
-│  - pools_ (connection pooling)                              │
-│  - default_headers_, cookies_, auth_                        │
+│                  session::impl (private)                          │
+│  - owned_ioc_ / ioc_                                              │
+│  - executor_ (strand or plain)                                    │
+│  - ssl_ctx_                                                       │
+│  - pools_ (connection pooling)                                    │
+│  - default_headers_, cookies_, auth_                              │
 └─────────────────────────────────────────────────────────────┘
-                              │
-            ┌─────────────────┼─────────────────┐
+                              |
+            ┌───────────────┼────────────────┐
             ▼                 ▼                 ▼
     ┌───────────────┐ ┌───────────────┐ ┌───────────────┐
-    │ build_request │ │acquire_connect│ │  read_response│
-    │ (http::request)│ │(pool/new conn)│ │(http::parser) │
+    │ build_request   │ │acquire_connect │ │  read_response │
+    │ (http::request) │ │(pool/new conn) │ │(http::parser)  │
     └───────────────┘ └───────────────┘ └───────────────┘
                               │
             ┌─────────────────┼─────────────────┐
             ▼                 ▼                 ▼
     ┌───────────────┐ ┌───────────────┐ ┌───────────────┐
-    │corosio::socket│ │corosio::      │ │boost::http::  │
-    │               │ │tls_stream     │ │serializer/    │
-    │               │ │               │ │parser         │
+    │corosio::socket │ │corosio::        │ │boost::http::    │
+    │                │ │tls_stream       │ │serializer/      │
+    │                │ │                 │ │parser           │
     └───────────────┘ └───────────────┘ └───────────────┘
 ```
 

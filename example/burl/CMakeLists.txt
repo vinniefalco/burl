@@ -7,7 +7,5 @@
 # Official repository: https://github.com/cppalliance/burl
 #
 
-add_executable(burl_example_usage usage.cpp)
-target_link_libraries(burl_example_usage PRIVATE Boost::burl)
-
-add_subdirectory(burl)
+add_executable(burl main.cpp)
+target_link_libraries(burl PRIVATE Boost::burl)
